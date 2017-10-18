@@ -1,23 +1,33 @@
 ---
 title: "Analysis of BLAST Results"
-author: "Don Francisco"
-date: "October 6, 2017"
+author: "Allison Bogisich"
+date: "October 16, 2017"
 output: github_document
 ---
 
 # Introduction
 
-Add 1-2 paragraphs here.
+Only within the past decade or so has the technical capability to sequence complex biological samples  been able to take off to such an astounding extent. Recent developments in phylogenetic community analysis (Lozupune and Knight,2005) with high-throughput pyrosequencing methods (Hamandy et al.,2008) have established the criteria for not only sequencing microbiome samples, but the very foundations of bacterial forensics. Fierer and his team have conducted a series of studies that demonstrate the strengths and weaknesses of the field (Fierer et al., 2010). They found that skin-associated bacterial communities are surprisingly diverse, and that they are independently stable enough to assist traditional forensic evaluations.
+
+Conventional methods of obtaining forensic results from human DNA require suffient amounts of blood, tissue, semen, or saliva on an object. However, it is often difficult to obtain a large (and uncontaminated) enough sample to sequence. In order to boost standard results, recovering bacterial DNA from touched surfaces may be far easier, espeically for identifying objects where clear fingerprints can't be obtained (e.g. fabrics, smudged surfaces, highly textured surfaces) (Ibid.) Given how abundant bacterial cells are on the surface of skin and on shed epidermal cells (Fredricks, 2001) and how highly personalized bacterial communities are implicates that more research is needed. In this post-analysis of Fierer's research, I compare the general makeup of the communities his team found on male versus female subjects.
+
+
 
 # Methods
 
+This post-experimental review is based on .csv output files from a BLAST search conducted from trimmed and quality checked fasta files from the Fierer team study. The BLAST search matched his swabbed and sequenced samples against the GenBank database from NCBI Sequence Read Archive study number ERP022657. The above process and the resulting files can be found in a Github repository 2017-usfca-cs-640/ABogisich-week06-homework-QC-and-BLAST. Using bioinformatic applications in R and R Studio, the samples were reorganized into easily readable histograms to compare the array of microbacterial fanua present on female and male subjects.
+
 ## Sample origin and sequencing
 
-Add about a paragraph here.
+Fierer and his team swabbed for skin-associated bacteria from different epidermal regions for each of their three studies. For the keyboard study, three participants were swabbed on the ventral surface of the distal joint of each fingertip. All individuals were healthy 20-35 year olds that had not taken antibiotics at least six months prior to swabbing. In the "storage" study, autoclaved cotton-tipped swabs moistened with sterile solution were again used, this time to sample the right axilary (armpit) skin surface sixteen times, from two healthy adults. Lastly, in the computer mouse study nine healthy adults were recruited (four female and five male, all 20-35 years of age) who worked in the same University of Colorado building. Using the swabbing technique outlined above, the entirety of the exposed surface of their dominant hand's palm (used to control the computer mice) were awabbed. Palm surfaces were sampled at midday and the particpants had been following typical hand hygiene practices prior to sampling. Swabs were stored at -80 degrees before DNA extraction. The microbial communities on these participants were compared to a previously compiled database from 270 other hands sampled by Fierer and collaborators (Fierer et al., 2008; Costello et al., 2009). The 270 hands in the database were from left and right palm surfaces belonging to an equal proportion of both healthy male and female volunteers, aged 18-40 years old.
+
+Post DNA extraction from the samples, sequences were processed and analyzed using pyrosequencing procedures akin to Fierer's work in 2008. Sequences were removed if shorter than 200 bp or larger than 300 in length, had a quality score lower than 25, had ambiguous characters or uncorrectable barcodes, or if it did not contain the primer sequence. Remaining sequences were assigned to samples via examination of the 12-nt barcode and then clustered into operational taxonomic units (OTUs). Representative sequences were selected for each OTU based on the longest length sequnce with the greast number of hits to other sequences within the OTU.
 
 ## Computational
 
-And another paragraph or two here.
+The program R version 3.4.2 in conjunction with R Studio version 1.1.383 interface for Windows desktop was used. In addition, several packages listed below from the R library which were downloaded in order to utilize more specific exploratory data analysis functions. The blast data set and its associated metadata were joined together for use within a single dataframe. First, output files from BLAST sequence search results in .csv format were then read into proper dataframes using subsequent data qualifiers to parse query sequence identifiers into appropriately labeled columns/reading frames. The empty matrix for the joined data was then created, with a function that would loop and append together all the results for each of the BLAST results. Then the tab delimited metadata was read in and joined with the BLAST output using dpyler, forming one large data table for manipulation. Finally, in order to produce visible data based histograms, the diplyr piping system was used to select a subset of rows matching certain criterion and then pull out columns. 
+
+
 
 # Results
 
@@ -122,7 +132,7 @@ joined_blast_data_metadata <- metadata_in %>%
 
 
 ```{r histograms}
-# Here we're using the dply piping syntax to select a subset of rows matching a
+# Here we're using the dplyr piping syntax to select a subset of rows matching a
 # criteria we specify (using the filter) function, and then pull out a column
 # from the data to make a histogram. We don't need to tell the hist() function
 # which data to use, because that's piped in, but we do have to give the
