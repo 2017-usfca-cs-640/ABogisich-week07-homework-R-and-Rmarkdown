@@ -131,7 +131,7 @@ joined_blast_data_metadata <- metadata_in %>%
 ```
 
 
-```{r histograms}
+```{r histogram 1}
 # Here we're using the dplyr piping syntax to select a subset of rows matching a
 # criteria we specify (using the filter) function, and then pull out a column
 # from the data to make a histogram. We don't need to tell the hist() function
@@ -148,12 +148,8 @@ Fig. 1 Percent Identity of Microbial DNA from Human Sebum
 
 Percent identity refers to a quantitative measurement of the similarity between two sequences (DNA, amino acid or otherwise). In figure 1, we see the range of similarity between all microbial DNA sequences detected in human sebum samples. The vast majority of the microbial DNA collected matched completely with another sequence collected from skin sebum secretions, occurring at a very high frequency of at least 2,500. The next largest percent similarity occurred at about 87% similarity with other sequences, and no sequences had percent identities that fell below 80%. 
 
-```{r histograms}
-# Here we're using the dplyr piping syntax to select a subset of rows matching a
-# criteria we specify (using the filter) function, and then pull out a column
-# from the data to make a histogram. We don't need to tell the hist() function
-# which data to use, because that's piped in, but we do have to give the
-# hist() function the title and axis label we'd like to use for the figure
+```{r histogram 2}
+
 joined_blast_data_metadata %>%
   filter(sex_s == "female") %>%
   pull(mismatch) %>%
@@ -165,12 +161,8 @@ Fig. 2 Frequency of Mismatched Microbial Sequences from Female Samples
 The number of mismatched sequences from female microbiome samples is skewed to the right/ a positive skew. The average sample had five or fewer mismatches in the sequence, with the tail trailing to the right. Very few samples (less than one-hundred) had more than twenty-five mismatches, while about six-hundred of the samples had between five and twenty-five mismatches.
 
 
-```{r histograms}
-# Here we're using the dplyr piping syntax to select a subset of rows matching a
-# criteria we specify (using the filter) function, and then pull out a column
-# from the data to make a histogram. We don't need to tell the hist() function
-# which data to use, because that's piped in, but we do have to give the
-# hist() function the title and axis label we'd like to use for the figure
+```{r histogram 3}
+
 joined_blast_data_metadata %>%
   filter(sex_s == "male") %>%
   pull(mismatch) %>%
@@ -182,12 +174,8 @@ Fig. 3 Frequency of Mismatched Microbial Sequences from Male Samples
 The distribution of mismatched sequences from male microbiome samples is generally skewed to the right, however it is not as strong a distribution as that of the female samples. Most frequently (about 1500 occurrences), male samples had between fifteen and twenty mismatches in the sequence, with the tail trailing to the right. Very few samples (about one-hundred) had more than twenty mismatches, while the majority of the samples (about two thousand) had between zero and twenty mismatches.
 
 
-```{r histograms}
-# Here we're using the dplyr piping syntax to select a subset of rows matching a
-# criteria we specify (using the filter) function, and then pull out a column
-# from the data to make a histogram. We don't need to tell the hist() function
-# which data to use, because that's piped in, but we do have to give the
-# hist() function the title and axis label we'd like to use for the figure
+```{r histogram 4}
+
 joined_blast_data_metadata %>%
   filter(sex_s == "female") %>%
   pull(bitscore) %>%
@@ -199,12 +187,8 @@ Fig. 4 Bit score Distribution for Sequenced Female Microbiome Samples
 The bit score (S) formula takes into account gaps in the sequence; the higher the score, the better the alignment for the sequence/highly significant the match is. High bit scores can occur when the alignment length is longer, even when there are more mismatches than for other hits. Here in figure 4 we see that the distribution is strongly skewed left/ negatively skewed for sequences derived from female skin samples. With the tail trailing left, the majority of the sequenced microbial DNA had highly significant bit scores. The mode score falls between 400-425.
 
 
-```{r histograms}
-# Here we're using the dplyr piping syntax to select a subset of rows matching a
-# criteria we specify (using the filter) function, and then pull out a column
-# from the data to make a histogram. We don't need to tell the hist() function
-# which data to use, because that's piped in, but we do have to give the
-# hist() function the title and axis label we'd like to use for the figure
+```{r histogram 5}
+
 joined_blast_data_metadata %>%
   filter(sex_s == "male") %>%
   pull(bitscore) %>%
