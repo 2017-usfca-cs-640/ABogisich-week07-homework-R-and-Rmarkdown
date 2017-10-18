@@ -144,7 +144,12 @@ joined_blast_data_metadata %>%
        xlab = "Percent")
 ```
 
-Don't forget to report what your figures show in words, here in the Results section.
+Fig. 1 Percent Identity of Microbial DNA from Human Sebum
+
+Percent identity refers to a quantitative measurement of the similarity between two sequences (DNA, amino acid or otherwise). In figure 1, we see the range of similarity between all microbial DNA sequences detected in human sebum samples. The vast majority of the microbial DNA collected matched completely with another sequence collected from skin sebum secretions, occurring at a very high frequency of at least 2,500. The next largest percent similarity occurred at about 87% similarity with other sequences, and no sequences had percent identities that fell below 80%. 
+
+
+
 
 ```{r summary-table}
 # Finally, we'd like to be able to make a summary table of the counts of
