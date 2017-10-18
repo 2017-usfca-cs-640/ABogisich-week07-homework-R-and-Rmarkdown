@@ -1,6 +1,6 @@
 ---
 title: "Analysis of BLAST Results"
-author: "Allison Bogisich"
+author: "Allison Bogisich asbogisich@dons.usfca.edu"
 date: "October 16, 2017"
 output: github_document
 ---
@@ -182,35 +182,41 @@ Fig. 3 Frequency of Mismatched Microbial Sequences from Male Samples
 The distribution of mismatched sequences from male microbiome samples is generally skewed to the right, however it is not as strong a distribution as that of the female samples. Most frequently (about 1500 occurrences), male samples had between fifteen and twenty mismatches in the sequence, with the tail trailing to the right. Very few samples (about one-hundred) had more than twenty mismatches, while the majority of the samples (about two thousand) had between zero and twenty mismatches.
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-```{r summary-table}
-# Finally, we'd like to be able to make a summary table of the counts of
-# sequences for each taxa for each sample. To do that we can use the table()
-# function. We add the kable() function as well (from the tidyr package)
-# in order to format the table nicely when the document is knitted
-kable(table(joined_blast_data_metadata$sscinames,
-            joined_blast_data_metadata$Run_s))
+```{r histograms}
+# Here we're using the dplyr piping syntax to select a subset of rows matching a
+# criteria we specify (using the filter) function, and then pull out a column
+# from the data to make a histogram. We don't need to tell the hist() function
+# which data to use, because that's piped in, but we do have to give the
+# hist() function the title and axis label we'd like to use for the figure
+joined_blast_data_metadata %>%
+  filter(sex_s == "female") %>%
+  pull(bitscore) %>%
+  hist(main = "Bitscores for Female Sequences",
+       xlab = "Bitscore Value")
 ```
+Fig. 4 Bitscore Distribution for Sequenced Female Microbiome Samples
+
+The bit score (S) formula takes into account gaps in the sequence; the higher the score, the better the alignment for the sequence. High bit scores can occur when the alignment length is longer, even when there are more mismatches than for other hits. Here in figure 4 we see that the distribution is strongly skewed left/ negatively skewed for sequences derived from female skin samples. With the tail trailing left, the majority of the sequenced microbial DNA had highly significant bitscores. The mode score falls between 400-425.
+
+
+```{r histograms}
+# Here we're using the dplyr piping syntax to select a subset of rows matching a
+# criteria we specify (using the filter) function, and then pull out a column
+# from the data to make a histogram. We don't need to tell the hist() function
+# which data to use, because that's piped in, but we do have to give the
+# hist() function the title and axis label we'd like to use for the figure
+joined_blast_data_metadata %>%
+  filter(sex_s == "male") %>%
+  pull(bitscore) %>%
+  hist(main = "Bitscores for Male Sequences",
+       xlab = "Bitscore Value")
+```
+Fig. 5 Bitscore Distribution for Sequenced Male Microbiome Samples
+
+For microbial sequences derived from male skin samples, no strong pattern of distribution emerges.The most common bitscore falls between 150-200, with a smaller, secondary clustering of scores falling between 325-400. The largest frequency for males is higher (~1800), and occurs at a lower bitscore (150-200) versus the female bitscore mode of 400-425, with a lower frequency (~1000).
+
+
+
 
 # Discussion
 
