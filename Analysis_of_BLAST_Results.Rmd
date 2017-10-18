@@ -191,12 +191,12 @@ The distribution of mismatched sequences from male microbiome samples is general
 joined_blast_data_metadata %>%
   filter(sex_s == "female") %>%
   pull(bitscore) %>%
-  hist(main = "Bitscores for Female Sequences",
-       xlab = "Bitscore Value")
+  hist(main = "Bit scores for Female Sequences",
+       xlab = "Bit score Value")
 ```
-Fig. 4 Bitscore Distribution for Sequenced Female Microbiome Samples
+Fig. 4 Bit score Distribution for Sequenced Female Microbiome Samples
 
-The bit score (S) formula takes into account gaps in the sequence; the higher the score, the better the alignment for the sequence. High bit scores can occur when the alignment length is longer, even when there are more mismatches than for other hits. Here in figure 4 we see that the distribution is strongly skewed left/ negatively skewed for sequences derived from female skin samples. With the tail trailing left, the majority of the sequenced microbial DNA had highly significant bitscores. The mode score falls between 400-425.
+The bit score (S) formula takes into account gaps in the sequence; the higher the score, the better the alignment for the sequence/highly significant the match is. High bit scores can occur when the alignment length is longer, even when there are more mismatches than for other hits. Here in figure 4 we see that the distribution is strongly skewed left/ negatively skewed for sequences derived from female skin samples. With the tail trailing left, the majority of the sequenced microbial DNA had highly significant bit scores. The mode score falls between 400-425.
 
 
 ```{r histograms}
@@ -208,17 +208,26 @@ The bit score (S) formula takes into account gaps in the sequence; the higher th
 joined_blast_data_metadata %>%
   filter(sex_s == "male") %>%
   pull(bitscore) %>%
-  hist(main = "Bitscores for Male Sequences",
-       xlab = "Bitscore Value")
+  hist(main = "Bit scores for Male Sequences",
+       xlab = "Bit score Value")
 ```
-Fig. 5 Bitscore Distribution for Sequenced Male Microbiome Samples
+Fig. 5 Bit score Distribution for Sequenced Male Microbiome Samples
 
-For microbial sequences derived from male skin samples, no strong pattern of distribution emerges.The most common bitscore falls between 150-200, with a smaller, secondary clustering of scores falling between 325-400. The largest frequency for males is higher (~1800), and occurs at a lower bitscore (150-200) versus the female bitscore mode of 400-425, with a lower frequency (~1000).
+For microbial sequences derived from male skin samples, no strong pattern of distribution emerges.The most common bit score falls between 150-200, with a smaller, secondary clustering of scores falling between 325-400. The largest frequency for males is higher (~1800), and occurs at a lower bit score (150-200) versus the female bitscore mode of 400-425, at a lower frequency (~1000).
 
 
 
 
 # Discussion
 
-Add 2-3 paragraphs here interpreting your results and considering future directions one might take in analyzing these data.
+While homologies can be inferred from "excess" similarity, and "excess" similarity is based on statistical estimates, most bioinformatics researchers tend to describe similarity in terms of 'percent identity'. Although the common rule of thumb is that any two sequences are homologous if they are greater than 30% identical over their entire respective lengths, the 30% criterion misses many relatively detectable homologs (Pearson, 2014). In Figure 1, we can see that the percent identities of the sequenced microbial DNA from the human skin samples all were above eighty percent and most were at one-hundred percent. This implies that essentially all of the sample sequences either had an exactly identical homolog or were very near to it. This suggests that across all male and female skin samples, there were very few sequences that were entirely unique.
+
+Several statistics allow comparison of hits across different searches returned from BLAST, and the ones examined here are mismatch and bit scores. In figures 2 and 3, the number of mismatches over the length of the alignment gives a rough idea of how closely sequences matched for female and male samples respectively. Based on the distributions, more mismatches at greater frequencies occurred in DNA matching of the male microbial surveys than in the female microbial surveys. This would suggest that the species making up the microbial communities of males are less documented/more novel than those species making up the female participants epidermal metagenomes. That not only are the microbiomes of invidiuals significantly different from each other, but that the microbiomes of males may be significantly different from those of female hominids. Further testing of this would need to be conducted in other environmental settings: different states, rural areas, etc. The bit score gender comparisons in figures 4 and 5, further portray biases in the accuracy and reliability of microbial sequence BLAST matches. While female bitscores in figure 4 maintained a highly negatively skewed distribution- with most sequences having very high alignment scores- males bitscores in figure 5 were markedly less reliable and robust. Since bit scores provide a constant statistical indicator for searching different databases of arious sizes or for searching the same database as it grows larger, bit scores are highly useful.  
+
+
+These apparent genedered differences have greater implications for the use of bacterial forensics, as biases in the ability to properly identify male and female microbiomes could potentially result in imbalanced or false convictions along the gender divide. Even if the overall reliablity of the statisitical analyses is strong for both genders, *if linking touched objects to one gender is even slightly easier and more reliable than for the opposite gender- that could have both bioethical and legal ramifications*. Further studies will still need to be conducted with greater and more equivalently gendered sample sizes to help improve the reliability and accuracy of microbial biome matching. Error could have possibly been compounded in what men versus women deem as "typical hygeine practices" prior to sampling, despite the fact that at least on palm surfaces, bacterial communites can recover within hours of washing (Fiere et al., 2008). The swabbing techniques used to pick up microbial communities in sebum mayb be slightly less effective on male versus female skin, which could further skew computational results. Especially needed are additional studies to assess how well the method works when pairing skin sebum to objects of different textures, or objects that come into contact with multiple skin locations on any given individual. As the reliablity of this method currently stands, submitting bacterial matches as forensic evidence could potentially become an institutialized form of judicial sexism. 
+
+
+
+
 
